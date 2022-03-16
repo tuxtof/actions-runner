@@ -7,5 +7,5 @@ RUN sudo apt update -y \
   && sudo apt install -y gh \
   && sudo rm -rf /var/lib/apt/lists/*
 
-RUN wget https://github.com/mikefarah/yq/releases/download/v4.22.1/yq_linux_amd64 -O /usr/bin/yq \
-    && chmod +x /usr/bin/yq
+RUN sudo wget https://github.com/mikefarah/yq/releases/download/v4.22.1/yq_linux_amd64 -O /usr/bin/yq \
+    && sudo chmod +x /usr/bin/yq
