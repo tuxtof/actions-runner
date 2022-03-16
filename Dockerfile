@@ -24,5 +24,5 @@ RUN export ARCH=$(case $(arch) in x86_64) echo -n amd64 ;; aarch64) echo -n arm6
 
 #install OC
 RUN sudo wget https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/latest-4.8/openshift-client-linux.tar.gz &&\
-    sudo tar xvzf openshift-client-linux.tar.gz oc kubectl && rm openshift-client-linux.tar.gz &&\
+    sudo tar xvzf openshift-client-linux.tar.gz oc kubectl && sudo rm openshift-client-linux.tar.gz &&\
     sudo mv oc kubectl /usr/local/bin/
