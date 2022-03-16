@@ -10,6 +10,7 @@ RUN sudo apt update -y \
 RUN sudo wget https://github.com/mikefarah/yq/releases/download/v4.22.1/yq_linux_amd64 -O /usr/bin/yq \
     && sudo chmod +x /usr/bin/yq
 
+# install Operator-sdk
 RUN export ARCH=$(case $(arch) in x86_64) echo -n amd64 ;; aarch64) echo -n arm64 ;; *) echo -n $(arch) ;; esac) &&\
       export OS=$(uname | awk '{print tolower($0)}') &&\
       export OPERATOR_SDK_DL_URL=https://github.com/operator-framework/operator-sdk/releases/latest/download &&\
@@ -20,3 +21,8 @@ RUN export ARCH=$(case $(arch) in x86_64) echo -n amd64 ;; aarch64) echo -n arm6
       # gpg -u "Operator SDK (release) <cncf-operator-sdk@cncf.io>" --verify checksums.txt.asc &&\
       # grep operator-sdk_${OS}_${ARCH} checksums.txt | sha256sum -c - &&\
       sudo chmod +x operator-sdk_${OS}_${ARCH} && sudo mv operator-sdk_${OS}_${ARCH} /usr/local/bin/operator-sdk
+
+#install OC
+RUN sudo wget https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/latest-4.8/openshift-client-linux.tar.gz &&\
+    sudo tar xvzf openshift-client-linux.tar.gz oc kubectl &&\
+    sudo mv oc kubectl /usr/local/bin/
