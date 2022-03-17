@@ -28,6 +28,5 @@ RUN sudo wget https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/la
     sudo mv oc kubectl /usr/local/bin/
 
 # install Tekton CLI
-RUN sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3EFE0E0A2F2F60AA &&\
-    echo "deb http://ppa.launchpad.net/tektoncd/cli/ubuntu eoan main"|sudo tee /etc/apt/sources.list.d/tektoncd-ubuntu-cli.list &&\
-    sudo apt update && sudo apt install -y tektoncd-cli
+RUN sudo wget https://github.com/tektoncd/cli/releases/download/v0.23.0/tektoncd-cli-0.23.0_Linux-64bit.deb &&\
+    sudo dpkg -i tektoncd-cli-0.23.0_Linux-64bit.deb && sudo rm tektoncd-cli-0.23.0_Linux-64bit.deb
