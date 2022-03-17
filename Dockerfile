@@ -22,7 +22,12 @@ RUN export ARCH=$(case $(arch) in x86_64) echo -n amd64 ;; aarch64) echo -n arm6
       # grep operator-sdk_${OS}_${ARCH} checksums.txt | sha256sum -c - &&\
       sudo chmod +x operator-sdk_${OS}_${ARCH} && sudo mv operator-sdk_${OS}_${ARCH} /usr/local/bin/operator-sdk
 
-#install OC
+# install OC CLI
 RUN sudo wget https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/latest-4.8/openshift-client-linux.tar.gz &&\
     sudo tar xvzf openshift-client-linux.tar.gz oc kubectl && sudo rm openshift-client-linux.tar.gz &&\
     sudo mv oc kubectl /usr/local/bin/
+
+# install Tekton CLI
+RUN sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3EFE0E0A2F2F60AA &&\
+    echo "deb http://ppa.launchpad.net/tektoncd/cli/ubuntu eoan main"|sudo tee /etc/apt/sources.list.d/tektoncd-ubuntu-cli.list &&\
+    sudo apt update && sudo apt install -y tektoncd-cli
