@@ -5,6 +5,9 @@ on:
     branches: [ main, ocp ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * *"
 
 env:
   IMAGE_NAME: ${{ github.repository }}
