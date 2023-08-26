@@ -25,6 +25,12 @@ jobs:
         version: [ubuntu-20.04, ubuntu-22.04]
 
     steps:
+    - name: Check out the repo
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
     - name: Login to GitHub Container Registry
       if: github.event_name != 'pull_request'
       uses: docker/login-action@v2
@@ -33,15 +39,14 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     
-    - uses: actions/checkout@v3
-    
     - name: Extract metadata (tags, labels) for Docker
       id: meta
       uses: docker/metadata-action@v4
       with:
         images: ghcr.io/${{ env.IMAGE_NAME }}
         tags: |
-          type=raw,${{ matrix.version }}
+          type=raw,value=${{ matrix.version }}
+          type=raw,value=latest,enable=${{ matrix.version == 'ubuntu-20.04' }}
     
     - name: Build and push
       uses: docker/build-push-action@v4
