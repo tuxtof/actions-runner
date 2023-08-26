@@ -18,6 +18,11 @@ jobs:
     permissions:
       contents: read
       packages: write
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        version: [ubuntu-20.04, ubuntu-22.04]
 
     steps:
     - name: Login to GitHub Container Registry
@@ -35,13 +40,13 @@ jobs:
       uses: docker/metadata-action@v4
       with:
         images: ghcr.io/${{ env.IMAGE_NAME }}
-        flavor: |
-          latest=true
+        tags: |
+          type=raw,${{ matrix.version }}
     
     - name: Build and push
       uses: docker/build-push-action@v4
       with:
-        context: ubuntu-20.04
+        context: ${{ matrix.version }}
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
