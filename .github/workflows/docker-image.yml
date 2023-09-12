@@ -49,7 +49,7 @@ jobs:
           type=raw,value=latest,enable=${{ matrix.version == 'ubuntu-20.04' }}
     
     - name: Build and push
-      uses: docker/build-push-action@v4
+      uses: docker/build-push-action@v5
       with:
         context: ${{ matrix.version }}
         push: ${{ github.event_name != 'pull_request' }}
