@@ -46,7 +46,7 @@ jobs:
         images: ghcr.io/${{ env.IMAGE_NAME }}
         tags: |
           type=raw,value=${{ matrix.version }}
-          type=raw,value=latest,enable=${{ matrix.version == 'ubuntu-20.04' }}
+          type=raw,value=latest,enable=${{ matrix.version == 'ubuntu-24.04' }}
     
     - name: Build and push
       uses: docker/build-push-action@v7
