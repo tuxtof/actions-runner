@@ -56,6 +56,12 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
 
+  clean:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
     - name: Clean up image from GHCR
       uses: dataaxiom/ghcr-cleanup-action@d52806a0dc70b430571a37da1fde39733ffd640f # v1.2.2
       with:
@@ -63,3 +69,4 @@ jobs:
         packages: ${{ github.event.repository.name }}
         delete-untagged: true
         token: ${{ secrets.GITHUB_TOKEN }}
+    
