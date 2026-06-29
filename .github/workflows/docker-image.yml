@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [ubuntu-20.04, ubuntu-22.04]
+        version: [ubuntu-24.04, ubuntu-22.04]
 
     steps:
     - name: Check out the repo
