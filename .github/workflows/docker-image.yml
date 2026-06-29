@@ -55,3 +55,11 @@ jobs:
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+
+    - name: Clean up image from GHCR
+      uses: dataaxiom/ghcr-cleanup-action@d52806a0dc70b430571a37da1fde39733ffd640f # v1.2.2
+      with:
+        owner: ${{ github.repository_owner }}
+        packages: ${{ github.event.repository.name }}
+        delete-untagged: true
+        token: ${{ secrets.GITHUB_TOKEN }}
